@@ -1,0 +1,22 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: traefik-ingress-controller-app-ingress
+  namespace: app
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: <fqdn>
+    http:
+      paths:
+      - path: /bar
+        backend:
+          serviceName: bar-svc
+          servicePort: 1323
+      - path: /default
+        backend:
+          serviceName: default-svc
+          servicePort: 2324
+          
