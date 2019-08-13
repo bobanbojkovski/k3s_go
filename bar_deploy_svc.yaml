@@ -1,0 +1,34 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: bar-app-deployment
+  namespace: app
+  labels:
+    app: bar-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bar-app
+  template:
+    metadata:
+      labels:
+        app: bar-app
+    spec:
+      containers:
+      - name: bar-app
+        image: localhost:5000/echo:1.0
+        args:
+        - "-text=bar"
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: bar-svc
+  namespace: app
+spec:
+  selector:
+    app: bar-app
+  ports:
+    - port: 1323
